@@ -54,4 +54,3 @@ connectDB()
     process.exit(1);
   });
 
-# test
