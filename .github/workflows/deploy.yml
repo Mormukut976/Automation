@@ -20,18 +20,14 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Backend Image Build and Push
-        env:
-          DOCKER_USER: ${{ secrets.DOCKER_USERNAME }}
         run: |
-          docker build -t $DOCKER_USER/backend:latest ./backend
-          docker push $DOCKER_USER/backend:latest
+          docker build -t rajasingh8890/backend:latest ./backend
+          docker push rajasingh8890/backend:latest
 
       - name: Frontend Image Build and Push
-        env:
-          DOCKER_USER: ${{ secrets.DOCKER_USERNAME }}
         run: |
-          docker build -t $DOCKER_USER/frontend:latest ./frontend
-          docker push $DOCKER_USER/frontend:latest
+          docker build -t rajasingh8890/frontend:latest ./frontend
+          docker push rajasingh8890/frontend:latest
 
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v0.1.6
