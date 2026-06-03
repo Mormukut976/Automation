@@ -1,0 +1,39 @@
+services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - website
+
+  backend:
+    build: ./backend
+    container_name: backend
+    ports:
+      - "5001:5001"
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/investment_app
+      - MONGODB_DB_NAME=investment_app
+      - JWT_SECRET=mera_secret_key_123
+      - PORT=5001
+    depends_on:
+      - mongo
+    networks:
+      - website
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    networks:
+      - website
+
+networks:
+  website:
+
+volumes:
+  mongo_data:
